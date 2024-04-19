@@ -17,6 +17,7 @@ export class PessoaJuridicaComponent implements OnInit {
   lista = new Array<PessoaJuridica>();
   enderecos = new Array<Endereco>();
   pjProdForm: FormGroup;
+  endFormGroup: FormGroup;
   pj: PessoaJuridica;
   varPesquisa: String = '';
   qtdPagina: Number = 0;
@@ -43,6 +44,19 @@ export class PessoaJuridicaComponent implements OnInit {
         tipoPessoa: ["", !Validators.required],
         enderecos: [this.enderecos, !Validators.required],
         empresa: [this.loginService.objetoEmpresa(), Validators.required]
+       });
+
+       this.endFormGroup = this.fb.group({
+        id:["",!Validators.required],
+        ruaLogra: [null, Validators.required],
+        cep: [null, Validators.required],
+        numero: [null, Validators.required],
+        complemento: [null, Validators.required],
+        bairro: [null, Validators.required],
+        uf: [null, Validators.required],
+        cidade: [null, Validators.required],
+        estado: [null, Validators.required],
+        tipoEndereco: ["", Validators.required],
        });
      
    
