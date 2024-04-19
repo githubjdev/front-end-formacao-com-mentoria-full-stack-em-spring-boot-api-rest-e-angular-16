@@ -1,0 +1,6 @@
+
+<h3 *ngIf="usuarioLogado()" style="text-align: center;">Área Admin Loja Virtual</h3>
+
+
+<app-navbar *ngIf="usuarioLogado()"></app-navbar>
+<router-outlet></router-outlet>

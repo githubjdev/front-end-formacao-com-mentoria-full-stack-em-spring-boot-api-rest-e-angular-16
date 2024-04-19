@@ -1,0 +1,115 @@
+<p style="text-align: center;font-weight: bold;font-size: 15px;">Cadastro Pessoa Fisica</p>
+
+<form class="row g-3" [formGroup]="pfProdForm">
+
+  <input type="hidden" id="empresa" name="empresa" formControlName="empresa">  
+
+    <div class="col-2">
+      <label for="id" class="form-label">ID:</label>
+      <input type="text" class="form-control" id="id" readonly name="id" formControlName="id" (ngModel)="pfProdForm.get('id')"  >
+    </div>
+    
+      <div class="col-4">
+        <label for="tipoPessoa" class="form-label">Tipo juridico ou fornecedor</label>
+        
+
+        <select class="form-select" formControlName="tipoPessoa" required>
+          <option value="">[--Selecione--]</option>
+          <option value="CLIENTE">Cliente</option>
+          <option value="FORNECEDOR">Fornecedor</option>      
+      </select>
+
+        <div *ngIf="pfProdForm.get('tipoPessoa')?.errors" style="font-size: 8px;color: brown;">* Tipo cliente ou fornecedor</div>
+      </div>      
+
+      <div class="col-4">
+        <label for="cpf" class="form-label">Cpf</label>
+        <input type="text" maxlength="100" class="form-control" id="cpf" name="cpf" required 
+         formControlName="cpf" mask="000.000.000-00">
+        <div *ngIf="pfProdForm.get('cpf')?.errors" style="font-size: 8px;color: brown;">* CPF</div>
+      </div> 
+
+
+      <div class="col-4">
+        <label for="dataNascimento" class="form-label">Data Nascimento</label>
+        <input type="text" maxlength="100" class="form-control" id="dataNascimento" name="dataNascimento" required 
+         formControlName="dataNascimento" mask="00/00/0000" [dropSpecialCharacters]="false">
+        <div *ngIf="pfProdForm.get('dataNascimento')?.errors" style="font-size: 8px;color: brown;">* Data Nascimento</div>
+      </div> 
+      
+      <div class="col-4">
+        <label for="nome" class="form-label">Nome</label>
+        <input type="text" maxlength="100" class="form-control" id="nome" name="nome" required 
+         formControlName="nome">
+        <div *ngIf="pfProdForm.get('nome')?.errors" style="font-size: 8px;color: brown;">* Nome do responsável</div>
+      </div> 
+      
+      <div class="col-4">
+        <label for="email" class="form-label">E-mail do responsável</label>
+        <input type="text" maxlength="100" class="form-control" id="email" name="email" required email="true"
+          formControlName="email">
+        <div *ngIf="pfProdForm.get('email')?.errors" style="font-size: 8px;color: brown;">* E-mail do responsável</div>
+      </div>    
+
+      <div class="col-4">
+        <label for="telefone" class="form-label">Telefone do responsável</label>
+        <input type="text" maxlength="100" class="form-control" id="telefone" name="etelefonemail" required 
+         formControlName="telefone" mask="(00) 0 0000-0000">
+        <div *ngIf="pfProdForm.get('telefone')?.errors" style="font-size: 8px;color: brown;">* Telefone do responsável</div>
+      </div>
+      
+
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary" (click)="salvaPj()" [disabled]="!pfProdForm.valid">Salvar</button>
+      <button type="submit" style="margin-left: 10px" class="btn btn-primary" (click)="novo()" [disabled]="!pfProdForm.valid">Novo</button>
+    </div>
+  </form>
+
+  <form class="row g-3">
+    <label for="pesquisa" class="form-label">Pesquisar</label>
+    <div class="col-10">
+      <input type="text" #pesquisa  (blur)="setPesquisa(pesquisa.value)" class="form-control"  id="pesquisa" name="pesquisa"  placeholder="Nome do acesso" >
+    </div>
+    <div class="col-2">
+      <button type="button" style="width: 80%;" (click)="pesquisar()" class="btn btn-success">Pesquisar</button>
+    </div>
+  </form>
+
+
+
+<table class="table">
+ <thead>
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Nome</th>
+    <th scope="col">Editar</th>
+    <th scope="col">Deletar</th>
+ </tr>
+ </thead>
+
+
+ <tbody>
+    <tr *ngFor="let c of lista">
+    <td>{{c.id}}</td>
+    <td>{{c.nome}}</td>
+    <td><button type="button" class="btn btn-primary" (click)="editarPj(c)">Editar</button></td>
+    <td><button type="button" class="btn btn-danger" (click)="deletar(c)">Deletar</button></td>
+    </tr>
+ </tbody>
+</table>
+
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link" (click)="voltar()">Voltar</a>
+    </li>
+    <li class="page-item" *ngFor="let p of this.arrayNumber; let i = index">
+      <a class="page-link"  (click)="buscarPagina(i)">{{(i + 1)}}</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" (click)="avancar()">Avançar</a>
+    </li>
+  </ul>
+</nav>

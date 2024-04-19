@@ -1,0 +1,25 @@
+<div style="display: flex;justify-content: center;align-items: center;flex-direction: row;margin-top: 15%;">
+    <form [formGroup]="loginForm">
+      <h3>{{titulologin}}</h3>
+      <div class="row mb-3" style="margin-top: 15px;">
+        <label for="login" class="col-sm-2 col-form-label">Login</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" id="login" name="login" formControlName="login" >
+          <div *ngIf="loginForm.get('login')?.errors" style="font-size: 8px;color: brown;">Login obrigatório</div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <label for="senha" class="col-sm-2 col-form-label">Senha</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="senha" name="senha" formControlName="senha">
+          <div *ngIf="loginForm.get('senha')?.errors" style="font-size: 8px;color: brown;">Senha obrigatório</div>
+        </div>
+      </div>
+     
+      <div class="row mb-3">
+        <button type="submit" class="btn btn-primary" (click)="fazerLogin()" [disabled]="!loginForm.valid">ENTRAR</button>
+       
+        <button type="submit" class="btn btn-primary" style="margin-top: 10px;" (click)="recuperarSenha()">RECUPERAR</button>
+      </div>
+    </form>
+    </div>

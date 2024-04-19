@@ -1,0 +1,175 @@
+<p style="text-align: center;font-weight: bold;font-size: 15px;">Cadastro Pessoa Juridica </p>
+
+<form class="row g-3" [formGroup]="pjProdForm">
+
+  <input type="hidden" id="empresa" name="empresa" formControlName="empresa">  
+
+    <div class="col-2">
+      <label for="id" class="form-label">ID:</label>
+      <input type="text" class="form-control" id="id" readonly name="id" formControlName="id" (ngModel)="pjProdForm.get('id')"  >
+    </div>
+    <div class="col-5">
+      <label for="nomeFantasia" class="form-label">Nome do fantasia</label>
+      <input type="text" maxlength="100" class="form-control" id="nomeFantasia" name="nomeFantasia" 
+      required  formControlName="nomeFantasia">
+      <div *ngIf="pjProdForm.get('nomeFantasia')?.errors" style="font-size: 8px;color: brown;">* Nome fantasia</div>
+    </div>
+
+    <div class="col-5">
+        <label for="cnpj" class="form-label">Cnpj</label>
+        <input type="text" maxlength="100" class="form-control" id="cnpj" name="cnpj" required 
+        formControlName="cnpj"  mask="00.000.000/0000-00">
+        <div *ngIf="pjProdForm.get('cnpj')?.errors" style="font-size: 8px;color: brown;">* Cnpj</div>
+      </div>
+
+      <div class="col-6">
+        <label for="inscEstadual" class="form-label">Inscrição estadual</label>
+        <input type="text" maxlength="100" class="form-control" id="inscEstadual" name="inscEstadual" required 
+         formControlName="inscEstadual" mask="0000000-00">
+        <div *ngIf="pjProdForm.get('inscEstadual')?.errors" style="font-size: 8px;color: brown;">* Inscrição estadual</div>
+      </div>
+
+
+      <div class="col-6">
+        <label for="inscMunicipal" class="form-label">Inscrição municipal</label>
+        <input type="text" maxlength="100" class="form-control" id="inscMunicipal" name="inscMunicipal" required 
+         formControlName="inscMunicipal">
+        <div *ngIf="pjProdForm.get('inscMunicipal')?.errors" style="font-size: 8px;color: brown;">* Inscrição municipal</div>
+      </div>
+
+
+      <div class="col-4">
+        <label for="razaoSocial" class="form-label">Razão social</label>
+        <input type="text" maxlength="100" class="form-control" id="razaoSocial" name="razaoSocial" required 
+         formControlName="razaoSocial">
+        <div *ngIf="pjProdForm.get('razaoSocial')?.errors" style="font-size: 8px;color: brown;">* Razão social</div>
+      </div>   
+      
+      <div class="col-4">
+        <label for="categoria" class="form-label">Categoria</label>
+        
+        <!--<input type="text" maxlength="100" class="form-control" id="categoria" name="categoria" required 
+         formControlName="categoria">
+        -->
+        <select class="form-select" formControlName="categoria" required>
+            <option value="">[--Selecione--]</option>
+            <option value="MEI">Mei</option>
+            <option value="ME">Micro-Empresa</option>
+            <option value="LTDA">Sociedade Ltda</option>
+        </select>
+
+        <div *ngIf="pjProdForm.get('categoria')?.errors" style="font-size: 8px;color: brown;">* Categoria</div>
+      </div>
+
+      <div class="col-4">
+        <label for="tipoPessoa" class="form-label">Tipo juridico ou fornecedor</label>
+        
+        <!--<input type="text" maxlength="100" class="form-control" id="tipoPessoa" name="tipoPessoa" required 
+         formControlName="tipoPessoa">
+        -->
+        <select class="form-select" formControlName="tipoPessoa" required>
+          <option value="">[--Selecione--]</option>
+          <option value="JURIDICA">Jurídica</option>
+          <option value="FORNECEDOR">Fornecedor</option>      
+      </select>
+
+        <div *ngIf="pjProdForm.get('tipoPessoa')?.errors" style="font-size: 8px;color: brown;">* Tipo juridico ou fornecedor</div>
+      </div>      
+      
+      
+      <div class="col-4">
+        <label for="nome" class="form-label">Nome do responsável</label>
+        <input type="text" maxlength="100" class="form-control" id="nome" name="nome" required 
+         formControlName="nome">
+        <div *ngIf="pjProdForm.get('nome')?.errors" style="font-size: 8px;color: brown;">* Nome do responsável</div>
+      </div> 
+      
+      <div class="col-4">
+        <label for="email" class="form-label">E-mail do responsável</label>
+        <input type="text" maxlength="100" class="form-control" id="email" name="email" required email="true"
+          formControlName="email">
+        <div *ngIf="pjProdForm.get('email')?.errors" style="font-size: 8px;color: brown;">* E-mail do responsável</div>
+      </div>    
+
+      <div class="col-4">
+        <label for="telefone" class="form-label">Telefone do responsável</label>
+        <input type="text" maxlength="100" class="form-control" id="telefone" name="etelefonemail" required 
+         formControlName="telefone" mask="(00) 0 0000-0000">
+        <div *ngIf="pjProdForm.get('telefone')?.errors" style="font-size: 8px;color: brown;">* Telefone do responsável</div>
+      </div>
+      
+      <table class="table">
+        <thead>
+         <tr>
+           <th scope="col">ID</th>
+           <th scope="col">Endereco</th>
+           <th scope="col">Ver</th>
+           <th scope="col">Deletar</th>
+        </tr>
+        </thead>
+       
+       
+        <tbody>
+           <tr *ngFor="let c of enderecos">
+           <td>{{c.id}}</td>
+           <td>{{c.ruaLogra}}</td>
+           <td><button type="button" class="btn btn-primary" (click)="editarPj(c)">Ver</button></td>
+           <td><button type="button" class="btn btn-danger" (click)="deletar(c)">Deletar</button></td>
+           </tr>
+        </tbody>
+       </table>
+
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary" (click)="salvaPj()" [disabled]="!pjProdForm.valid">Salvar</button>
+      <button type="submit" style="margin-left: 10px" class="btn btn-primary" (click)="novo()" [disabled]="!pjProdForm.valid">Novo</button>
+    </div>
+  </form>
+
+  <form class="row g-3">
+    <label for="pesquisa" class="form-label">Pesquisar</label>
+    <div class="col-10">
+      <input type="text" #pesquisa  (blur)="setPesquisa(pesquisa.value)" class="form-control"  id="pesquisa" name="pesquisa"  placeholder="Nome do acesso" >
+    </div>
+    <div class="col-2">
+      <button type="button" style="width: 80%;" (click)="pesquisar()" class="btn btn-success">Pesquisar</button>
+    </div>
+  </form>
+
+
+
+<table class="table">
+ <thead>
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Nome</th>
+    <th scope="col">Editar</th>
+    <th scope="col">Deletar</th>
+ </tr>
+ </thead>
+
+
+ <tbody>
+    <tr *ngFor="let c of lista">
+    <td>{{c.id}}</td>
+    <td>{{c.nomeFantasia}}</td>
+    <td><button type="button" class="btn btn-primary" (click)="editarPj(c)">Editar</button></td>
+    <td><button type="button" class="btn btn-danger" (click)="deletar(c)">Deletar</button></td>
+    </tr>
+ </tbody>
+</table>
+
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link" (click)="voltar()">Voltar</a>
+    </li>
+    <li class="page-item" *ngFor="let p of this.arrayNumber; let i = index">
+      <a class="page-link"  (click)="buscarPagina(i)">{{(i + 1)}}</a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" (click)="avancar()">Avançar</a>
+    </li>
+  </ul>
+</nav>
