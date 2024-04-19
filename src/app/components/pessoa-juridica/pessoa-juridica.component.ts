@@ -197,11 +197,28 @@ export class PessoaJuridicaComponent implements OnInit {
   
 
   addEndereco(){
-    const end = this.endObjt();
+     const end = this.endObjt();
+      
+     var index = this.enderecos.map(e => e.cep).indexOf(end.cep);
 
-    this.enderecos.push(end);
-    console.info(end);
-  }    
+     if (index < 0) {
+      this.enderecos.push(end);
+     }else{
+      this.enderecos.splice(index,1);
+      this.enderecos.push(end);
+     }
+   
+    console.info(this.enderecos);
+  }   
+  
+  
+  removeEndereco(end: Endereco): void{
+    var index = this.enderecos.map(e => e.cep).indexOf(end.cep);
+    this.enderecos.splice(index,1);
+    
+    console.info(this.enderecos);
+  }
+
 
   /*Salvar marca produtos*/
   salvaPj(){
