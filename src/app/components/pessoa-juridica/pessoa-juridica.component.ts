@@ -136,7 +136,7 @@ export class PessoaJuridicaComponent implements OnInit {
       pjObjeto(): PessoaJuridica {
     
         return {
-          id: this.pjProdForm.get('id')?.value!,
+          id: this.pjProdForm.get('id')?.value!,   
           cnpj: this.pjProdForm.get('cnpj')?.value!,
           inscEstadual: this.pjProdForm.get('inscEstadual')?.value!,
           inscMunicipal: this.pjProdForm.get('inscMunicipal')?.value!,
@@ -148,7 +148,7 @@ export class PessoaJuridicaComponent implements OnInit {
           telefone: this.pjProdForm.get('telefone')?.value!,
           tipoPessoa: this.pjProdForm.get('tipoPessoa')?.value!,
           enderecos: this.enderecos,
-          empresa : this.pjProdForm.get('empresa')?.value!
+          empresa : this.pjProdForm.get('empresa')?.value! 
         }
       }
   

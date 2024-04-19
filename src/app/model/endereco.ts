@@ -12,8 +12,10 @@ export class Endereco {
     estado?: String;
     tipoEndereco?: String;
 
+    
+
     constructor(){
-        
+
     }
 
 }

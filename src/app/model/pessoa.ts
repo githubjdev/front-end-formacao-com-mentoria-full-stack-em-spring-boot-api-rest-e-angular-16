@@ -12,6 +12,9 @@ export class  Pessoa {
     empresa?: PessoaJuridica;
     enderecos?: Endereco[];
 
+
+    
+
     constructor(){    
       
     }
