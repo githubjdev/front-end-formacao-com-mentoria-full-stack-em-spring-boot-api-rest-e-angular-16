@@ -142,9 +142,38 @@ export class PessoaJuridicaComponent implements OnInit {
       enderecos: [this.enderecos, !Validators.required],
       empresa: [this.loginService.objetoEmpresa(), Validators.required]
      });
+
+     this.endFormGroup = this.fb.group({
+      id:["",!Validators.required],
+      ruaLogra: [null, Validators.required],
+      cep: [null, Validators.required],
+      numero: [null, Validators.required],
+      complemento: [null, Validators.required],
+      bairro: [null, Validators.required],
+      uf: [null, Validators.required],
+      cidade: [null, Validators.required],
+      estado: [null, Validators.required],
+      tipoEndereco: ["", Validators.required],
+     });
+
+
    }
 
 
+   endObjt(): Endereco {
+    return {
+      id: this.endFormGroup.get("id")?.value,
+      ruaLogra: this.endFormGroup.get("ruaLogra")?.value,
+      cep: this.endFormGroup.get("cep")?.value,
+      numero: this.endFormGroup.get("numero")?.value,
+      complemento: this.endFormGroup.get("complemento")?.value,
+      bairro: this.endFormGroup.get("bairro")?.value,
+      uf: this.endFormGroup.get("uf")?.value,
+      cidade: this.endFormGroup.get("cidade")?.value,
+      estado: this.endFormGroup.get("estado")?.value,
+      tipoEndereco: this.endFormGroup.get("tipoEndereco")?.value,
+    }
+   }
 
       /*Trasnformar em objeto */
       pjObjeto(): PessoaJuridica {
@@ -167,6 +196,13 @@ export class PessoaJuridicaComponent implements OnInit {
       }
   
 
+  addEndereco(){
+    const end = this.endObjt();
+
+    this.enderecos.push(end);
+    console.info(end);
+  }    
+
   /*Salvar marca produtos*/
   salvaPj(){
     const pj = this.pjObjeto();
@@ -180,7 +216,21 @@ export class PessoaJuridicaComponent implements OnInit {
 
   }     
   
-  
+  verEnd(c: Endereco): void {
+
+    this.endFormGroup = this.fb.group({
+      id:[c.id,!Validators.required],
+      ruaLogra: [c.ruaLogra, Validators.required],
+      cep: [c.cep, Validators.required],
+      numero: [c.numero, Validators.required],
+      complemento: [c.complemento, Validators.required],
+      bairro: [c.bairro, Validators.required],
+      uf: [c.uf, Validators.required],
+      cidade: [c.cidade, Validators.required],
+      estado: [c.estado, Validators.required],
+      tipoEndereco: [c.tipoEndereco, Validators.required],
+     });
+  }
 
   editarPj(c: PessoaJuridica): void {
    

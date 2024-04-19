@@ -176,7 +176,7 @@
         </div>         
 
         <div class="col-12">
-          <button type="submit" class="btn btn-primary" (click)="salvaPj()" [disabled]="!endFormGroup.valid">Adicionar endereço</button>
+          <button type="submit" class="btn btn-primary" (click)="addEndereco()" [disabled]="!endFormGroup.valid">Adicionar endereço</button>
           
         </div>
 
@@ -198,7 +198,7 @@
            <tr *ngFor="let c of enderecos">
            <td>{{c.id}}</td>
            <td>{{c.ruaLogra}}</td>
-           <td><button type="button" class="btn btn-primary" (click)="editarPj(c)">Ver</button></td>
+           <td><button type="button" class="btn btn-primary" (click)="verEnd(c)">Ver</button></td>
            <td><button type="button" class="btn btn-danger" (click)="deletar(c)">Deletar</button></td>
            </tr>
         </tbody>
