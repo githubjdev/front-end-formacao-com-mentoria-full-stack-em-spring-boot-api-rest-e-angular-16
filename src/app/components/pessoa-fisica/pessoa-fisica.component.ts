@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Endereco } from 'src/app/model/endereco';
 import { PessoaFisica } from 'src/app/model/pessoa-fisica';
+import { EnderecoService } from 'src/app/services/endereco.service';
 import { LoginService } from 'src/app/services/login.service';
 import { PessoaFisicaService } from 'src/app/services/pessoaFisica.service';
 
@@ -14,7 +16,9 @@ export class PessoaFisicaComponent implements OnInit {
 
 
   lista = new Array<PessoaFisica>();
+  enderecos = new Array<Endereco>();
   pfProdForm: FormGroup;
+  endFormGroup: FormGroup;
   pf: PessoaFisica;
   varPesquisa: String = '';
   qtdPagina: Number = 0;
@@ -22,7 +26,7 @@ export class PessoaFisicaComponent implements OnInit {
   paginaAtual: Number = 0;
 
 
-  constructor (private fb: FormBuilder, private pjService: PessoaFisicaService, private loginService: LoginService) {
+  constructor (private fb: FormBuilder, private pjService: PessoaFisicaService, private loginService: LoginService, private enderecoService: EnderecoService) {
 
     this.pf = new PessoaFisica();
 
@@ -35,8 +39,23 @@ export class PessoaFisicaComponent implements OnInit {
         email: [null, !Validators.required],
         telefone: [null, !Validators.required],
         tipoPessoa: ["", !Validators.required],
+        enderecos: [this.enderecos, !Validators.required],
         empresa: [this.loginService.objetoEmpresa(), Validators.required]
        });
+
+       this.endFormGroup = this.fb.group({
+        id:["",!Validators.required],
+        ruaLogra: [null, Validators.required],
+        cep: [null, Validators.required],
+        numero: [null, Validators.required],
+        complemento: [null, Validators.required],
+        bairro: [null, Validators.required],
+        uf: [null, Validators.required],
+        cidade: [null, Validators.required],
+        estado: [null, Validators.required],
+        tipoEndereco: ["", Validators.required],
+       });
+            
      
    
   }
@@ -104,6 +123,8 @@ export class PessoaFisicaComponent implements OnInit {
 
 
   novo(): void{
+    this.enderecos = new Array<Endereco>();
+
     this.pfProdForm = this.fb.group({
       id:[],
       cpf: [null, !Validators.required],
@@ -112,11 +133,42 @@ export class PessoaFisicaComponent implements OnInit {
       email: [null, !Validators.required],
       telefone: [null, !Validators.required],
       tipoPessoa: ["", !Validators.required],
+      enderecos: [this.enderecos, !Validators.required],
       empresa: [this.loginService.objetoEmpresa(), Validators.required]
      });
+
+     this.endFormGroup = this.fb.group({
+      id:["",!Validators.required],
+      ruaLogra: [null, Validators.required],
+      cep: [null, Validators.required],
+      numero: [null, Validators.required],
+      complemento: [null, Validators.required],
+      bairro: [null, Validators.required],
+      uf: [null, Validators.required],
+      cidade: [null, Validators.required],
+      estado: [null, Validators.required],
+      tipoEndereco: ["", Validators.required],
+     });
+
+
    }
 
 
+   verEnd(c: Endereco): void {
+
+    this.endFormGroup = this.fb.group({
+      id:[c.id,!Validators.required],
+      ruaLogra: [c.ruaLogra, Validators.required],
+      cep: [c.cep, Validators.required],
+      numero: [c.numero, Validators.required],
+      complemento: [c.complemento, Validators.required],
+      bairro: [c.bairro, Validators.required],
+      uf: [c.uf, Validators.required],
+      cidade: [c.cidade, Validators.required],
+      estado: [c.estado, Validators.required],
+      tipoEndereco: [c.tipoEndereco, Validators.required],
+     });
+  }
 
       /*Trasnformar em objeto */
       pjObjeto(): PessoaFisica {
@@ -129,9 +181,59 @@ export class PessoaFisicaComponent implements OnInit {
           email: this.pfProdForm.get('email')?.value!,
           telefone: this.pfProdForm.get('telefone')?.value!,
           tipoPessoa: this.pfProdForm.get('tipoPessoa')?.value!,
+          enderecos: this.enderecos,
           empresa : this.pfProdForm.get('empresa')?.value!
         }
       }
+
+      endObjt(): Endereco {
+        return {
+          id: this.endFormGroup.get("id")?.value,
+          ruaLogra: this.endFormGroup.get("ruaLogra")?.value,
+          cep: this.endFormGroup.get("cep")?.value,
+          numero: this.endFormGroup.get("numero")?.value,
+          complemento: this.endFormGroup.get("complemento")?.value,
+          bairro: this.endFormGroup.get("bairro")?.value,
+          uf: this.endFormGroup.get("uf")?.value,
+          cidade: this.endFormGroup.get("cidade")?.value,
+          estado: this.endFormGroup.get("estado")?.value,
+          tipoEndereco: this.endFormGroup.get("tipoEndereco")?.value,
+        }
+       }
+
+      
+  addEndereco(){
+    const end = this.endObjt();
+     
+    var index = this.enderecos.map(e => e.cep).indexOf(end.cep);
+
+    if (index < 0) {
+     this.enderecos.push(end);
+    }else{
+     this.enderecos.splice(index,1);
+     this.enderecos.push(end);
+    }
+  
+   console.info(this.enderecos);
+ }   
+ 
+ 
+ removeEndereco(end: Endereco): void{
+
+  var confirma = confirm('Deseja mesmo deletar o endereço?');
+
+  if (confirma) {
+
+    this.enderecoService.deletar(end);
+    
+    var index = this.enderecos.map(e => e.cep).indexOf(end.cep);
+    this.enderecos.splice(index,1);
+    
+   
+    console.info(this.enderecos);
+  }
+ }
+
   
 
   /*Salvar marca produtos*/
@@ -156,6 +258,8 @@ export class PessoaFisicaComponent implements OnInit {
 
         this.pf = data;
 
+        this.enderecos = this.pf.enderecos !== undefined ? this.pf.enderecos : new Array<Endereco>();
+
         this.pfProdForm = this.fb.group({
           id:[this.pf.id],
           cpf: [this.pf.cpf, !Validators.required],
@@ -164,6 +268,7 @@ export class PessoaFisicaComponent implements OnInit {
           email: [this.pf.email, !Validators.required],
           telefone: [this.pf.telefone, !Validators.required],
           tipoPessoa: [this.pf.tipoPessoa, !Validators.required],
+          enderecos: [this.enderecos, !Validators.required],
           empresa: [this.loginService.objetoEmpresa(), Validators.required]
          });
 

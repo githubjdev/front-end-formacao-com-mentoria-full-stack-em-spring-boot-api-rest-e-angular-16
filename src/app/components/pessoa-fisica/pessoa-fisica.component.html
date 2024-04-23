@@ -59,6 +59,110 @@
       </div>
       
 
+      <form class="row g-3" [formGroup]="endFormGroup">
+
+        <div class="col-1">
+          <label for="id" class="form-label">ID:</label>
+          <input type="text" class="form-control" id="id" readonly name="id" formControlName="id" (ngModel)="endFormGroup.get('id')"  >
+        </div>
+
+        <div class="col-5">
+          <label for="ruaLogra" class="form-label">Rua</label>
+          <input type="text" maxlength="100" class="form-control" id="ruaLogra" name="ruaLogra" 
+          required  formControlName="ruaLogra">
+          <div *ngIf="endFormGroup.get('ruaLogra')?.errors" style="font-size: 8px;color: brown;">* Rua</div>
+        </div>    
+        
+        <div class="col-3">
+          <label for="cep" class="form-label">Cep</label>
+          <input type="text" maxlength="100" class="form-control" id="cep" name="cep" 
+          required  formControlName="cep" mask="00000-000">
+          <div *ngIf="endFormGroup.get('cep')?.errors" style="font-size: 8px;color: brown;">* Cep</div>
+        </div>
+        
+        <div class="col-3">
+          <label for="numero" class="form-label">Número</label>
+          <input type="text" maxlength="100" class="form-control" id="numero" name="numero" 
+          required  formControlName="numero" >
+          <div *ngIf="endFormGroup.get('numero')?.errors" style="font-size: 8px;color: brown;">* Número</div>
+        </div>   
+        
+        <div class="col-5">
+          <label for="complemento" class="form-label">Complemento</label>
+          <input type="text" maxlength="100" class="form-control" id="complemento" name="complemento" 
+          required  formControlName="complemento" >
+          <div *ngIf="endFormGroup.get('complemento')?.errors" style="font-size: 8px;color: brown;">* Complemento</div>
+        </div>  
+
+        <div class="col-5">
+          <label for="bairro" class="form-label">Bairro</label>
+          <input type="text" maxlength="100" class="form-control" id="bairro" name="bairro" 
+          required  formControlName="bairro" >
+          <div *ngIf="endFormGroup.get('bairro')?.errors" style="font-size: 8px;color: brown;">* Bairro</div>
+        </div>  
+
+        <div class="col-2">
+          <label for="uf" class="form-label">UF</label>
+          <input type="text" maxlength="100" class="form-control" id="uf" name="uf" 
+          required  formControlName="uf" >
+          <div *ngIf="endFormGroup.get('uf')?.errors" style="font-size: 8px;color: brown;">* UF</div>
+        </div>  
+
+        <div class="col-5">
+          <label for="cidade" class="form-label">Cidade</label>
+          <input type="text" maxlength="100" class="form-control" id="cidade" name="cidade" 
+          required  formControlName="cidade" >
+          <div *ngIf="endFormGroup.get('cidade')?.errors" style="font-size: 8px;color: brown;">* Cidade</div>
+        </div> 
+        
+        <div class="col-3">
+          <label for="estado" class="form-label">Estado</label>
+          <input type="text" maxlength="100" class="form-control" id="estado" name="estado" 
+          required  formControlName="estado" >
+          <div *ngIf="endFormGroup.get('estado')?.errors" style="font-size: 8px;color: brown;">* Estado</div>
+        </div>  
+        
+
+        <div class="col-4">
+          <label for="tipoEndereco" class="form-label">Tipo do endereço</label>
+
+          <select class="form-select" formControlName="tipoEndereco" required>
+            <option value="">[--Selecione--]</option>
+            <option value="COBRANCA">Cobrança</option>
+            <option value="ENTREGA">Entrega</option>      
+        </select>
+  
+          <div *ngIf="endFormGroup.get('tipoEndereco')?.errors" style="font-size: 8px;color: brown;">* Tipo do endereço</div>
+        </div>         
+
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary" (click)="addEndereco()" [disabled]="!endFormGroup.valid">Adicionar endereço</button>
+          
+        </div>
+
+      </form>
+      <table class="table">
+        <thead>
+         <tr>
+           <th scope="col">ID</th>
+           <th scope="col">Endereco</th>
+           <th scope="col">Ver</th>
+
+           <th scope="col">Deletar</th>
+        </tr> 
+        </thead>
+       
+       
+        <tbody>
+           <tr *ngFor="let c of enderecos">
+           <td>{{c.id}}</td>
+           <td>{{c.ruaLogra}}</td>
+           <td><button type="button" class="btn btn-primary" (click)="verEnd(c)">Ver</button></td>
+           <td><button type="button" class="btn btn-danger" (click)="removeEndereco(c)">Deletar</button></td>
+           </tr>
+        </tbody>
+       </table>
+
 
     <div class="col-12">
       <button type="submit" class="btn btn-primary" (click)="salvaPj()" [disabled]="!pfProdForm.valid">Salvar</button>

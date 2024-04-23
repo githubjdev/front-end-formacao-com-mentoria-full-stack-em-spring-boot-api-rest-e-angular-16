@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Endereco } from 'src/app/model/endereco';
 import { PessoaJuridica } from 'src/app/model/pessoa-juridica';
+import { EnderecoService } from 'src/app/services/endereco.service';
 import { LoginService } from 'src/app/services/login.service';
 import { PessoaJuridicaService } from 'src/app/services/pessoaJuridica.service';
 
@@ -25,7 +26,7 @@ export class PessoaJuridicaComponent implements OnInit {
   paginaAtual: Number = 0;
 
 
-  constructor (private fb: FormBuilder, private pjService: PessoaJuridicaService, private loginService: LoginService) {
+  constructor (private fb: FormBuilder, private pjService: PessoaJuridicaService, private loginService: LoginService, private enderecoService: EnderecoService) {
 
     this.pj = new PessoaJuridica();
 
@@ -212,12 +213,24 @@ export class PessoaJuridicaComponent implements OnInit {
   }   
   
   
+
+
   removeEndereco(end: Endereco): void{
-    var index = this.enderecos.map(e => e.cep).indexOf(end.cep);
-    this.enderecos.splice(index,1);
-    
-    console.info(this.enderecos);
-  }
+
+    var confirma = confirm('Deseja mesmo deletar o endereço?');
+  
+    if (confirma) {
+  
+      this.enderecoService.deletar(end);
+      
+      var index = this.enderecos.map(e => e.cep).indexOf(end.cep);
+      this.enderecos.splice(index,1);
+      
+     
+      console.info(this.enderecos);
+    }
+   }
+  
 
 
   /*Salvar marca produtos*/
