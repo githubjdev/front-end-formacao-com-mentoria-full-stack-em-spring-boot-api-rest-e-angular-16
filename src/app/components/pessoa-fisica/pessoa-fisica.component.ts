@@ -204,10 +204,21 @@ export class PessoaFisicaComponent implements OnInit {
       
   addEndereco(){
     const end = this.endObjt();
+
+    if (end.id != null && end.id != undefined){
+      for(var i = 0; i< this.enderecos.length; i++){
+          var e = this.enderecos[i];
+          if(e.cep === end.cep && e.id != end.id){
+            return;
+          }
+      }
+   }
      
     var index = this.enderecos.map(e => e.cep).indexOf(end.cep);
 
-    if (index < 0) {
+    var indexId = this.enderecos.map(e => e.id).indexOf(end.id);
+
+    if (index < 0 && indexId < 0) {
      this.enderecos.push(end);
     }else{
      this.enderecos.splice(index,1);
@@ -216,6 +227,21 @@ export class PessoaFisicaComponent implements OnInit {
   
    console.info(this.enderecos);
  }   
+
+ novoEndereco(): void{
+  this.endFormGroup = this.fb.group({
+    id:["",!Validators.required],
+    ruaLogra: [null, Validators.required],
+    cep: [null, Validators.required],
+    numero: [null, Validators.required],
+    complemento: [null, Validators.required],
+    bairro: [null, Validators.required],
+    uf: [null, Validators.required],
+    cidade: [null, Validators.required],
+    estado: [null, Validators.required],
+    tipoEndereco: ["", Validators.required],
+   });
+ }
  
  
  removeEndereco(end: Endereco): void{
@@ -237,14 +263,14 @@ export class PessoaFisicaComponent implements OnInit {
   
 
   /*Salvar marca produtos*/
-  salvaPj(){
+  salvaPf(){
     const pj = this.pjObjeto();
 
     console.info(pj);
 
-    this.pjService.salvarpf(pj);
+    this.pjService.salvarpf2(pj, this);
 
-    this.novo();
+    //this.novo();
     this.listaPj(this.paginaAtual);
 
   }     

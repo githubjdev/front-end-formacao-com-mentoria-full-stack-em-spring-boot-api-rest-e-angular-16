@@ -19,6 +19,7 @@ export class EnderecoService {
 
   deletar(m : Endereco): void {
 
+    if (m.id != null) {
 
       this.http.post<String>(this.urlApi + 'deleteEndereco', m).subscribe({
     
@@ -39,6 +40,7 @@ export class EnderecoService {
           console.info(error);
         }
       });
+    }
    
   }  
 

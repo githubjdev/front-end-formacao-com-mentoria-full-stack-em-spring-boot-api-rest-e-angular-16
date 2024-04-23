@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { LoginService } from './login.service';
 import { PessoaJuridica } from '../model/pessoa-juridica';
+import { PessoaJuridicaComponent } from '../components/pessoa-juridica/pessoa-juridica.component';
 
 @Injectable({
   providedIn: 'root'
@@ -64,6 +65,34 @@ return this.http.post<String>(this.urlApi + 'salvarPj', m).subscribe({
 });
 
 }
+
+
+
+salvarpj2(m: PessoaJuridica, c: PessoaJuridicaComponent){
+
+  return this.http.post<String>(this.urlApi + 'salvarPj', m).subscribe({
+     next: (res) => {
+  
+        var varResposta = JSON.stringify(res);
+        var jsonResposta = JSON.parse(varResposta);
+  
+        if (jsonResposta.error != undefined){
+          alert(jsonResposta.error);
+        }else{
+          c.novo();
+          alert('Salvo com sucesso: ID: ' + jsonResposta.id);
+        }
+  
+     },
+     error: (error) => {
+      
+      console.info(error.error.error);
+      alert(error.error.error);
+     }
+  
+  });
+  
+  }
 
 
 
