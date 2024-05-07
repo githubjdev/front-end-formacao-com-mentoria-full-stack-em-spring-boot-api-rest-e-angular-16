@@ -1,0 +1,27 @@
+<p>usuario works!</p>
+
+
+
+
+
+<table class="table">
+    <thead>
+     <tr>
+       <th scope="col">ID</th>
+       <th scope="col">Nome</th>
+       <th scope="col">Editar</th>
+       <th scope="col">Deletar</th>
+    </tr>
+    </thead>
+   
+   
+    <tbody>
+       <tr *ngFor="let c of lista">
+       <td>{{c.id}}</td>
+       <td>{{c.login}}</td>
+       <td><button type="button" class="btn btn-primary" >Editar</button></td>
+       <td><button type="button" class="btn btn-danger" >Deletar</button></td>
+       </tr>
+    </tbody>
+   </table>
+   
