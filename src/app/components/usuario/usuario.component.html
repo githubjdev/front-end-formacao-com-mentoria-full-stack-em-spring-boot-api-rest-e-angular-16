@@ -1,13 +1,66 @@
-<p>usuario works!</p>
 
+<p style="text-align: center;font-weight: bold;font-size: 15px;">Cadastro de Usuário </p>
 
+<form class="row g-3" [formGroup]="userProdForm">
+   <input type="hidden" id="empresa" name="empresa" formControlName="empresa">  
 
+   <div class="col-2">
+      <label for="id" class="form-label">ID:</label>
+      <input type="text" class="form-control" id="id" readonly name="id" formControlName="id" (ngModel)="userProdForm.get('id')"  >
+    </div>
+
+    <div class="col-10">
+      <label for="pessoa" class="form-label">Pessoa</label>
+      <input type="text" maxlength="100" class="form-control" id="pessoa" name="pessoa" readonly
+      required  formControlName="pessoa">
+      <div *ngIf="userProdForm.get('pessoa')?.errors" style="font-size: 8px;color: brown;">* Pessoa</div>
+    </div> 
+
+    <div class="col-6">
+      <label for="login" class="form-label">Login</label>
+      <input type="text" maxlength="100" class="form-control" id="login" name="login" 
+      required  formControlName="login">
+      <div *ngIf="userProdForm.get('login')?.errors" style="font-size: 8px;color: brown;">* Login</div>
+    </div>   
+    
+    
+    <div class="col-6">
+      <label for="senha" class="form-label">Senha</label>
+      <input type="password" maxlength="100" class="form-control" id="senha" name="senha" 
+      required  formControlName="senha">
+      <div *ngIf="userProdForm.get('senha')?.errors" style="font-size: 8px;color: brown;">* Senha</div>
+    </div>     
+ 
+  <table class="table">
+    <thead>
+      <tr>
+         <th scope="col">Liberado</th>
+         <th scope="col">Acesso</th>
+      </tr> 
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let c of acesso">
+         <td><input type="checkbox" checked="{{c.possuiAcesso}}" (change)="adicionaRemoreAcesso(c)"></td>
+         <td>{{c.descricao}}</td>
+      </tr>
+         
+    </tbody>
+
+  </table>  
+    
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary" (click)="salvarUser()" [disabled]="!userProdForm.valid">Salvar</button>
+      <button type="submit" style="margin-left: 10px" class="btn btn-primary" (click)="novo()" [disabled]="!userProdForm.valid">Novo</button>
+    </div>   
+</form>
 
 
 <table class="table">
     <thead>
      <tr>
        <th scope="col">ID</th>
+       <th scope="col">Login</th>
        <th scope="col">Nome</th>
        <th scope="col">Editar</th>
        <th scope="col">Deletar</th>
@@ -19,7 +72,8 @@
        <tr *ngFor="let c of lista">
        <td>{{c.id}}</td>
        <td>{{c.login}}</td>
-       <td><button type="button" class="btn btn-primary" >Editar</button></td>
+       <td>{{c.pessoa?.nome}}</td>
+       <td><button type="button" class="btn btn-primary" (click)="editarUser(c.id)">Editar</button></td>
        <td><button type="button" class="btn btn-danger" >Deletar</button></td>
        </tr>
     </tbody>

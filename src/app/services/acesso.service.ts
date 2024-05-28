@@ -72,6 +72,11 @@ listarAcesso(pagina: Number){
 }
 
 
+listarAcessoTodos(){
+  return this.http.get<Acesso[]>(this.urlApi + 'listaAcessoPorEmpresa/' + this.loginService.codEmpresa());
+}
+
+
 buscarPorId(id: any){
   return this.http.get<Acesso>(this.urlApi + 'obterAcesso/' + id);
 }
