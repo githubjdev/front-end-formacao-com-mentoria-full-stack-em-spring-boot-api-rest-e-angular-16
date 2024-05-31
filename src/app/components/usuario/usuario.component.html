@@ -74,7 +74,7 @@
        <td>{{c.login}}</td>
        <td>{{c.pessoa?.nome}}</td>
        <td><button type="button" class="btn btn-primary" (click)="editarUser(c.id)">Editar</button></td>
-       <td><button type="button" class="btn btn-danger" >Deletar</button></td>
+       <td><button type="button" class="btn btn-danger" (click)="removerUserPessoa(c.id)">Deletar</button></td>
        </tr>
     </tbody>
    </table>

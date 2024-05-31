@@ -137,4 +137,26 @@ export class UsuarioComponent implements OnInit {
 
   }
 
+
+  removerUserPessoa(idUser: any) {
+
+    if (!confirm('deseja mesmo deletar?')){
+        return false;
+    }
+
+    var idUserLogado = localStorage.getItem('idUser'); /*Pega o id do user logado */
+
+    if (idUserLogado == idUser){
+      alert('Você não pode deletar seu próprio registro');
+      return false;
+    }
+
+
+    this.usuarioService.removerUserPessoa(idUser);
+
+    this.listUser();
+    return true;
+  }
+ 
+
 }
