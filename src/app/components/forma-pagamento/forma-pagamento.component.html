@@ -1,0 +1,43 @@
+<p style="text-align: center;font-weight: bold;font-size: 15px;">Cadastro de categoria de produto</p>
+
+<form class="row g-3" [formGroup]="formPagProdForm">
+
+  <input type="hidden" id="empresa" name="empresa" formControlName="empresa">  
+
+    <div class="col-2">
+      <label for="id" class="form-label">ID:</label>
+      <input type="text" class="form-control" id="id" readonly name="id" placeholder="ID" formControlName="id" (ngModel)="formPagProdForm.get('id')"  >
+    </div>
+    <div class="col-10">
+      <label for="nomeDesc" class="form-label">Nome da categoria</label>
+      <input type="text" maxlength="100" class="form-control" id="descricao" name="descricao" required placeholder="Nome da forma de pagamento" formControlName="descricao">
+      <div *ngIf="formPagProdForm.get('descricao')?.errors" style="font-size: 8px;color: brown;">* Nome da forma de pagamento</div>
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary"  [disabled]="!formPagProdForm.valid">Salvar</button>
+      <button type="submit" class="btn btn-primary" style="margin-left: 10px;"  [disabled]="!formPagProdForm.valid">Novo</button>
+    </div>
+  </form>
+
+<table class="table">
+ <thead>
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Nome</th>
+    <th scope="col">Editar</th>
+    <th scope="col">Deletar</th>
+ </tr>
+ </thead>
+
+
+ <tbody>
+    <tr *ngFor="let c of lista">
+    <td>{{c.id}}</td>
+    <td>{{c.descricao}}</td>
+    <td><button type="button" class="btn btn-primary" >Editar</button></td>
+    <td><button type="button" class="btn btn-danger" (click)="deletar(c)">Deletar</button></td>
+    </tr>
+ </tbody>
+</table>
+
