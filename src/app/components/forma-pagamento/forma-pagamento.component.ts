@@ -14,18 +14,20 @@ export class FormaPagamentoComponent implements OnInit {
 
   lista = new Array<FormaPagamento>();
   formPagProdForm: FormGroup;
+  formPag: FormaPagamento;
 
 
   constructor(private fb: FormBuilder ,
       private loginService: LoginService, 
        private  formaPagamentoService: FormaPagamentoService){
 
+        this.formPag = new FormaPagamento(); 
 
          this.formPagProdForm = this.fb.group({
                 id:[],
                 descricao: [null, Validators.required],
                 empresa: [this.loginService.objetoEmpresa(), Validators.required]
-               });
+         });
                
 
   }
@@ -61,5 +63,51 @@ export class FormaPagamentoComponent implements OnInit {
       this.listaFormaPagamento();
    }
   }
+
+  editarFp(c: FormaPagamento): void {
+
+   
+   this.formPag = c;
+
+  this.formPagProdForm = this.fb.group({
+      id:[c.id],
+      descricao: [c.descricao, Validators.required],
+      empresa: [c.empresa, Validators.required]
+  });
+
+  }
+
+
+  novo(): void{
+   this.formPagProdForm = this.fb.group({
+     id:[],
+     descricao: [null, Validators.required],
+     empresa: [this.loginService.objetoEmpresa(), Validators.required]
+    });
+  }
+
+
+  /*Tranformar em objeto*/
+
+  formaPagObjeto(): FormaPagamento {
+
+    return {
+     id: this.formPagProdForm.get('id')?.value!,
+     descricao: this.formPagProdForm.get('descricao')?.value!,
+     empresa: this.formPagProdForm.get('empresa')?.value! 
+    }
+  }
+
+  salvarFormPag(){
+
+   const fp = this.formaPagObjeto();
+
+   this.formaPagamentoService.salvarFp(fp);
+
+   this.novo();
+   this.listaFormaPagamento();
+
+  }
+ 
 
 }

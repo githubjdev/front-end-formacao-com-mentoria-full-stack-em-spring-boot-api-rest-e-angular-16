@@ -15,8 +15,8 @@
     </div>
 
     <div class="col-12">
-      <button type="submit" class="btn btn-primary"  [disabled]="!formPagProdForm.valid">Salvar</button>
-      <button type="submit" class="btn btn-primary" style="margin-left: 10px;"  [disabled]="!formPagProdForm.valid">Novo</button>
+      <button type="submit" class="btn btn-primary"  [disabled]="!formPagProdForm.valid" (click)="salvarFormPag()">Salvar</button>
+      <button type="submit" class="btn btn-primary" style="margin-left: 10px;"  [disabled]="!formPagProdForm.valid" (click)="novo()">Novo</button>
     </div>
   </form>
 
@@ -35,7 +35,7 @@
     <tr *ngFor="let c of lista">
     <td>{{c.id}}</td>
     <td>{{c.descricao}}</td>
-    <td><button type="button" class="btn btn-primary" >Editar</button></td>
+    <td><button type="button" class="btn btn-primary" (click)="editarFp(c)">Editar</button></td>
     <td><button type="button" class="btn btn-danger" (click)="deletar(c)">Deletar</button></td>
     </tr>
  </tbody>

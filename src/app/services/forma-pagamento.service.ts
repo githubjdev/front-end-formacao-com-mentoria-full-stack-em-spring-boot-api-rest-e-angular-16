@@ -44,4 +44,24 @@ export class FormaPagamentoService {
   }
 
 
+
+  salvarFp(fm : FormaPagamento) {
+    return this.http.post<String>(this.urlApi + 'salvarFormaPagamento', fm).subscribe({
+         next: (res) => {
+              var varResposta = JSON.stringify(res);
+              var jsonResposta = JSON.parse(varResposta);
+
+              if (jsonResposta.error != undefined){
+                  alert(jsonResposta.error);
+              }else{
+                alert('Salvo com sucesso ID: ' + jsonResposta.id);
+              }
+         },
+         error: (error) => {
+           alert(error.error.error);
+         }
+    });
+  }
+
+
 }
