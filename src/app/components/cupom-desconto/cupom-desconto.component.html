@@ -1,0 +1,65 @@
+<p style="text-align: center;font-weight: bold;font-size: 15px;">Cadastro de categoria de produto</p>
+
+<form class="row g-3" [formGroup]="cupDescProdForm">
+
+  <input type="hidden" id="empresa" name="empresa" formControlName="empresa">  
+
+    <div class="col-2">
+      <label for="id" class="form-label">ID:</label>
+      <input type="text" class="form-control" id="id" readonly name="id" placeholder="ID" formControlName="id" (ngModel)="cupDescProdForm.get('id')"  >
+    </div>
+    <div class="col-5">
+      <label for="codDesc" class="form-label">Nome do Cupom</label>
+      <input type="text" maxlength="100" class="form-control" id="codDesc" name="codDesc" required placeholder="Nome da forma de pagamento" formControlName="codDesc">
+      <div *ngIf="cupDescProdForm.get('codDesc')?.errors" style="font-size: 8px;color: brown;">* Nome da forma de pagamento</div>
+    </div>
+
+    <div class="col-5">
+        <label for="dataValidadeCupom" class="form-label">Data de válidade</label>
+        <input type="text" maxlength="100" class="form-control" id="dataValidadeCupom"
+         name="dataValidadeCupom" required placeholder="Nome da forma de pagamento"
+          formControlName="dataValidadeCupom" 
+          mask="00/00/0000" [dropSpecialCharacters]="false">
+        <div *ngIf="cupDescProdForm.get('dataValidadeCupom')?.errors" style="font-size: 8px;color: brown;">* Data de válidade</div>
+      </div>
+
+      <div class="col-5">
+        <label for="valorRealDesc" class="form-label">Valor real do desconto</label>
+        <input type="text" maxlength="100" class="form-control" id="valorRealDesc" name="valorRealDesc" required placeholder="Valor real do desconto" formControlName="valorRealDesc">
+        <div *ngIf="cupDescProdForm.get('valorRealDesc')?.errors" style="font-size: 8px;color: brown;">* Valor real do desconto</div>
+      </div>   
+      
+
+      <div class="col-5">
+        <label for="valorPorcentDesc" class="form-label">Valor % do desconto</label>
+        <input type="text" maxlength="100" class="form-control" id="valorPorcentDesc" name="valorPorcentDesc" required placeholder="Valor % do desconto" formControlName="valorPorcentDesc">
+        <div *ngIf="cupDescProdForm.get('valorPorcentDesc')?.errors" style="font-size: 8px;color: brown;">* Valor % do desconto</div>
+      </div>       
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary"  [disabled]="!cupDescProdForm.valid" (click)="salvarCd()">Salvar</button>
+      <button type="submit" class="btn btn-primary" style="margin-left: 10px;"  [disabled]="!cupDescProdForm.valid" (click)="novo()">Novo</button>
+    </div>
+  </form>
+
+<table class="table">
+ <thead>
+  <tr>
+    <th scope="col">ID</th>
+    <th scope="col">Nome</th>
+    <th scope="col">Editar</th>
+    <th scope="col">Deletar</th>
+ </tr>
+ </thead>
+
+
+ <tbody>
+    <tr *ngFor="let c of lista">
+    <td>{{c.id}}</td>
+    <td>{{c.codDesc}}</td>
+    <td><button type="button" class="btn btn-primary" (click)="editarFp(c)">Editar</button></td>
+    <td><button type="button" class="btn btn-danger" (click)="deletar(c)">Deletar</button></td>
+    </tr>
+ </tbody>
+</table>
+

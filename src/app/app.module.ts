@@ -18,6 +18,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideEnvironmentNgxMask, provideNgxMas
 import { PessoaFisicaComponent } from './components/pessoa-fisica/pessoa-fisica.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { FormaPagamentoComponent } from './components/forma-pagamento/forma-pagamento.component';
+import { CupomDescontoComponent } from './components/cupom-desconto/cupom-desconto.component';
 
 
 export const appRoutes : Routes = [
@@ -31,7 +32,8 @@ export const appRoutes : Routes = [
   {path: 'pessoa-juridica', component: PessoaJuridicaComponent, canActivate:[guardiaoGuard], data: {role:['ROLE_ADMIN']}},
   {path: 'pessoa-fisica', component: PessoaFisicaComponent, canActivate:[guardiaoGuard], data: {role:['ROLE_ADMIN']}},
   {path: 'usuario', component: UsuarioComponent, canActivate:[guardiaoGuard], data: {role:['ROLE_ADMIN']}},
-  {path: 'forma-pagamento', component: FormaPagamentoComponent, canActivate:[guardiaoGuard], data: {role:['ROLE_ADMIN']}}
+  {path: 'forma-pagamento', component: FormaPagamentoComponent, canActivate:[guardiaoGuard], data: {role:['ROLE_ADMIN']}},
+  {path: 'cup-desc', component: CupomDescontoComponent, canActivate:[guardiaoGuard], data: {role:['ROLE_ADMIN']}}
 ];
 
 export const routes = RouterModule.forRoot(appRoutes);
@@ -48,7 +50,8 @@ export const routes = RouterModule.forRoot(appRoutes);
     PessoaJuridicaComponent,
     PessoaFisicaComponent,
     UsuarioComponent,
-    FormaPagamentoComponent
+    FormaPagamentoComponent,
+    CupomDescontoComponent
 
   ],
   imports: [
